@@ -14,6 +14,7 @@ class Host extends EventEmitter {
 
         this.ipc = null;
         this.window = null;
+        this.show();
     }
 
     destructor() {
