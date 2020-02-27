@@ -1,0 +1,14 @@
+{
+  "name": "tera-mod-ui",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tera-toolbox/tera-mod-ui.git"
+  },
+  "author": "Caali",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tera-toolbox/tera-mod-ui/issues"
+  },
+  "homepage": "https://github.com/tera-toolbox/tera-mod-ui#readme"
+}
