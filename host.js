@@ -1,6 +1,7 @@
 const path = require('path');
 const EventEmitter = require('events');
 const { IPCChannel } = require('./global.js');
+const events = require("./enums");
 
 class Host extends EventEmitter {
     constructor(mod, file, options, createWindow = true, rootFolder = null) {
@@ -62,8 +63,14 @@ class Host extends EventEmitter {
     }
 
     _handleEvent(event, name, ...args) {
-        if (this.window && event.sender.id === this.window.id)
-            this.emit(name, ...args);
+        if (this.window && event.sender.id === this.window.id) {
+            switch(name) {
+                case(events.CLOSE_EVENT): this.close(); break;
+                case(events.MINIMIZE_EVENT): this.window.minimize(); break;
+                case(events.MAXIMIZE_EVENT): this.window.maximize(); break;
+                default:  this.emit(name, ...args);
+            }
+        }
     }
 
     send(name, ...args) {
