@@ -34,8 +34,15 @@ class Host extends EventEmitter {
         const { BrowserWindow } = require('electron');
         this.ipc = require('electron').ipcMain;
 
-        this.window = new BrowserWindow(options || this.options);
-        this.window.loadFile(path.join(this.rootFolder || this.mod.rootFolder, file || this.file));
+        //hotfix for electron deprecation message
+        let opt = options || this.options;
+        if(!opt.webPreferences || !opt.webPreferences.contextIsolation) {
+            if(!opt.webPreferences) opt.webPreferences = {};
+            opt.webPreferences.contextIsolation = false;
+        }
+
+        this.window = new BrowserWindow(opt);
+        this.window.loadFile(path.join(this.rootFolder || this.mod.info.path, file || this.file));
         this.window.on('closed', () => { this._onClosed(); this.window = null; });
 
         this._handleEvent = this._handleEvent.bind(this);

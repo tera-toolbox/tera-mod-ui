@@ -10,11 +10,12 @@ class Settings extends EventEmitter {
         this.settings = settings;
 
         this.ui = new Host(mod, 'index.html', Object.assign({
-            title: `${mod.options.guiName || mod.name} - Settings`,
-            icon: path.join(__dirname, 'settings_ui', 'icon.png'),
-            useContentSize: true,
+            title: `${mod.info.options.guiName || mod.info.name} - Settings`,
+            icon: path.join(__dirname, 'settings_ui', './icon.ico'),
+            width: 480,
+            height: 520,
             frame: false,
-            resizable: false,
+            resizable: true,
             webPreferences: {
                 nodeIntegration: true,
                 devTools: false
@@ -22,7 +23,7 @@ class Settings extends EventEmitter {
         }, options), false, path.join(__dirname, 'settings_ui'));
 
         this.ui.on('init', () => {
-            this.ui.send('init', mod.options.guiName || mod.name, global.TeraProxy.GUITheme, this.structure, this.settings);
+            this.ui.send('init', mod.info.options.guiName || mod.info.name, global.TeraProxy.GUITheme, this.structure, this.settings);
         });
 
         this.ui.on('update', (key, value) => {
