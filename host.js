@@ -36,9 +36,11 @@ class Host extends EventEmitter {
 
         //hotfix for electron deprecation message
         let opt = options || this.options;
-        if(!opt.webPreferences || !opt.webPreferences.contextIsolation) {
+        opt = {...opt};
+        if(!opt.webPreferences || !opt.webPreferences.contextIsolation || !opt.webPreferences.nodeIntegration ) {
             if(!opt.webPreferences) opt.webPreferences = {};
             opt.webPreferences.contextIsolation = false;
+            opt.webPreferences.nodeIntegration = true;
         }
 
         this.window = new BrowserWindow(opt);
